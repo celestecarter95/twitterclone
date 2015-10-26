@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}{{ request.user }}'s Recent Posts{% endblock %}
+
+{% block content %}
+	{% for post in post_list %}
+		{% include 'microblog/_post.html' %}
+	{% empty %}
+		<p>No posts have been made from you or those you follow.</p>
+	{% endfor %}
+
+{% endblock %}

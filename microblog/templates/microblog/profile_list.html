@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}List of Kaizens{% endblock title %}
+
+{% block content %}
+
+<h1>Hello world!</h1>
+{% if user.is_authenticated %}
+	<div class="profile-view">
+		<h1>{{ profile.user }}</h1>
+		<p>{{ profile.bio }}</p>
+	</div>
+{% else %}
+	{% if is_paginated %}
+		<div class="pagination">
+			{% if page_obj.has_previous %}
+				<a href="/?page={{ page_obj.previous_page_number }}">previous</a>
+			{% endif %}
+			{% if page_obj.has_nect %}
+				<a href="/?page={{ page.obj.next_page_number }}">next</a>
+			{% endif %}
+		</div>
+	{% endif %}
+<h2>Do you want to login?</h2>
+{% endif %}
+
+{% endblock content %}

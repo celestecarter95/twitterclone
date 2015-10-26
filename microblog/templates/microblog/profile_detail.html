@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% block title %}{{ profile.user.username }}'s Profile{% endblock %}
+
+{% block content %}
+
+<div class="profile">
+	{% if profile.picture %}
+		{% thumbnail profile.picture "200x200" crop="center" as img %}
+			<img src="{{ img.url }}" class="profile-img" alt="profile image">
+		{% endthumbnail %}
+	{% else %}
+		<img src="{{ profile.get_gravatar_img_path }}?s=160" class="profile-img" alt="empty profile image">
+	{% endif %}
+	
+	<button class="btn btn-primary">Follow {{ profile.user.username }}</button>
+	<p>{{ profile.bio }}</p>
+</div>
+{% for post in profile.post_set.all|slice:":10" %}
+	{% include 'microblog/_post.html' %}
+{% empty %}
+	{% if post.profile.username %}
+		<p>There has been no posts made from {{ post.profile.username }}.</p>
+	{% else %}
+		<p>There has been no posts made from {{ post.profile.user }}.</p>
+	{% endif %}
+{% endfor %}
+
+{% endblock %}

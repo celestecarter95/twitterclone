@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Recent Posts{% endblock title %}
+
+{% block content %}
+
+<h1>Welcome to Microblog!</h1>
+
+{% for post in post_list %}
+	{% include 'microblog/_post.html' %}
+{% empty %}
+	<p>No one has posted on microblog yet.</p>
+{% endfor %}
+
+{% endblock content %}
