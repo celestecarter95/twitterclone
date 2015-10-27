@@ -2,10 +2,29 @@
 {% block title %}{{ request.user }}'s Recent Posts{% endblock %}
 
 {% block content %}
+{% if post_list %}
 	{% for post in post_list %}
 		{% include 'microblog/_post.html' %}
 	{% empty %}
 		<p>No posts have been made from you or those you follow.</p>
 	{% endfor %}
+{{ is_paginated }} is paginated?
+
+	{% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="/myfeed?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="/myfeed?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+{% endif %}
 
 {% endblock %}

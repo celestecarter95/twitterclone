@@ -12,8 +12,12 @@
 	{% else %}
 		<img src="{{ profile.get_gravatar_img_path }}?s=160" class="profile-img" alt="empty profile image">
 	{% endif %}
-	
-	<button class="btn btn-primary">Follow {{ profile.user.username }}</button>
+
+	{% ifequal request.user profile.user %}
+		<a href="">Edit Profile</a>
+	{% else %}
+		<button class="btn btn-primary">Follow {{ profile.user.username }}</button>
+	{% endifequal %}
 	<p>{{ profile.bio }}</p>
 </div>
 {% for post in profile.post_set.all|slice:":10" %}

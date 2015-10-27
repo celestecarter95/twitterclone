@@ -9,6 +9,10 @@
 		<img src="{{ post.profile.get_gravatar_img_path }}" width="80" height="80" class="profile-img" alt="empty profile picture">
 	{% endif %}
 
+	{% ifequal request.user post.profile.user %}
+		<a href="{% url 'microblog:updatepost' post.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
+		<a href="{% url 'microblog:deletepost' post.id %}"><span class="glyphicon glyphicon-trash"></span></a>
+	{% endifequal %}
 	{% if post.profile.username %}
 		<a href="{% url 'microblog:profiledetail' post.profile.user.id %}">{{ post.profile.username }}</a>
 	{% else %}
