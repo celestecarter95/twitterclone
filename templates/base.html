@@ -27,6 +27,9 @@
 
 	<!-- Extra Scripts Block -->
 	{% block 'extrascripts' %}{% endblock %}
+
+	<!-- LOAD thumbnail -->
+	{% load thumbnail %}
   </head>
 
   <body>
@@ -41,11 +44,20 @@
 			<span class="icon-bar"></span>
 		  </button>
 		  <a class="navbar-brand" href="{% url 'microblog:main' %}">Microblog</a>
+		{% if request.user.is_authenticated %}
+			{% if request.user.profile.picture %}
+				{% thumbnail request.user.profile.picture "200x200" crop="center" as img %}
+					<img src="{{ img.url }}" class="profile-img" alt="profile image">
+				{% endthumbnail %}
+			{% else %}
+				<img src="{{ profile.get_gravatar_img_path }}?s=160" class="profile-img" alt="empty profile image">
+			{% endif %}
+		{% endif %}
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 		  <ul class="nav navbar-nav">
 			{% if request.user.is_authenticated %}
-				{% if request.user.profile %}
+				{% if request.user.get_profile %}
 				<li class="active"><a href="{% url 'microblog:profiledetail' request.user.id %}">Profile</a></li>
 				{% else %}
 				<li class="active"><a href="{% url 'microblog:createprofile' %}">Profile</a></li>

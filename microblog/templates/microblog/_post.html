@@ -13,11 +13,7 @@
 		<a href="{% url 'microblog:updatepost' post.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
 		<a href="{% url 'microblog:deletepost' post.id %}"><span class="glyphicon glyphicon-trash"></span></a>
 	{% endifequal %}
-	{% if post.profile.username %}
-		<a href="{% url 'microblog:profiledetail' post.profile.user.id %}">{{ post.profile.username }}</a>
-	{% else %}
-		<a href="{% url 'microblog:profiledetail' post.profile.user.id %}">{{ post.profile.user }}</a>
-	{% endif %}
+	<a href="{% url 'microblog:profiledetail' post.profile.user.id %}">{{ post.profile }}</a>
 	<p class="pubdate">Published {{ post.pub_date|date:"d M, Y" }} at {{ post.pub_date|date:"g:i a" }}</p>
 	<p>{{ post.body }}</p>
 </div>
