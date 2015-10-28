@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Success{%endblock%}
+
+{% block content %}
+
+<p>
+You've successfully followed <a href="{% url 'microblog:profiledetail' profile.user.id %}">{{profile.user.username}}</a> on Twitterclone.
+</p>
+
+{% endblock %}

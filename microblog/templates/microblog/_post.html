@@ -3,7 +3,7 @@
 <div class="">
 	{% if post.profile.picture %}
 		{% thumbnail post.profile.picture "80x80" crop="center" as img %}
-			<img src"{{ img.url }}" class="profile-img" alt="profile picture">
+			<img src="{{ img.url }}" class="profile-img" alt="profile picture">
 		{% endthumbnail %}
 	{% else %}
 		<img src="{{ post.profile.get_gravatar_img_path }}" width="80" height="80" class="profile-img" alt="empty profile picture">

@@ -28,7 +28,7 @@ class MyFeedView(ListView):
 		my_profile = self.request.user.profile_set.all()[0]
 		profile_list = list(my_profile.following.all())
 		profile_list.append(my_profile)
-		return Post.objects.filter(profile__in = profile_list)
+		return Post.objects.filter(profile__in = profile_list).order_by('-pub_date')
 
 class FollowFormView(SingleObjectMixin, View):
 	model = Profile
@@ -36,9 +36,10 @@ class FollowFormView(SingleObjectMixin, View):
 	def post(self, request, *args, **kwargs):
 		#self tells me who we want to follow and request tell me who the login user is
 		my_profile = request.user.profile_set.all()[0]
-		my_profile.following.all(self.get_object())
+		my_profile.following.add(self.get_object())
 		my_profile.save()
-		return HttpResponseRedirect(reverse('microblog:followsuccess', args = (self.get_object().pk, )))
+		return HttpResponseRedirect(reverse_lazy('microblog:profiledetail', args = (self.get_object().pk, )))
+		#return HttpResponseRedirect(reverse_lazy('microblog:followsuccess', args = (self.get_object().pk, )))
 		# return HttpResponseRedirect(reverse('microblog:followsuccess', kwargs = {'pk': self.get_object.pk()))
 
 class FollowSuccessView(SingleObjectMixin, TemplateView):
@@ -68,4 +69,33 @@ class UpdatePostView(UpdateView):
 class DeletePostView(DeleteView):
 	model = Post
 	success_url = reverse_lazy('microblog:deletesuccess')
+
+class CreateProfileView(CreateView):
+	model = Profile
+	fields = ['bio', 'picture', 'following']
+
+	def get_success_url(self):
+		return reverse('microblog:profiledetail', args = (self.request.user.id, ))
+
+	def form_valid(self, form):
+		profile = form.save(commit=False)
+		profile.user = self.request.user
+		profile.picture = self.get_form_kwargs().get('files')['picture']
+		profile.save()
+
+		return super(CreateProfileView, self).form_valid(form)
+
+class UpdateProfileView(UpdateView):
+	model = Profile
+	fields = ['bio', 'picture', 'following']
+
+	def get_success_url(self):
+		return reverse('microblog:profiledetail', args = (self.get_object().pk,))
+
+	def form_valid(self, form):
+		profile = form.save(commit=False)
+		profile.picture = self.get_form_kwargs().get('files')['picture']
+		profile.save()
+
+		return super(UpdateProfileView, self).form_valid(form)
 

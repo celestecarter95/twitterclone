@@ -13,21 +13,22 @@
 		<img src="{{ profile.get_gravatar_img_path }}?s=160" class="profile-img" alt="empty profile image">
 	{% endif %}
 
-	{% ifequal request.user profile.user %}
-		<a href="">Edit Profile</a>
-	{% else %}
-		<button class="btn btn-primary">Follow {{ profile.user.username }}</button>
-	{% endifequal %}
+	{% if request.user.is_authenticated %}
+		{% ifequal request.user profile.user %}
+			<a href="{% url 'microblog:updateprofile' profile.id %}">Edit Profile</a>
+		{% else %}
+			<form action="{% url 'microblog:follow' profile.id %}" method="post">
+				{%csrf_token %}
+				<button class="btn btn-primary">Follow {{ profile }}</button>
+			</form>
+		{% endifequal %}
+	{% endif %}
 	<p>{{ profile.bio }}</p>
 </div>
 {% for post in profile.post_set.all|slice:":10" %}
 	{% include 'microblog/_post.html' %}
 {% empty %}
-	{% if post.profile.username %}
-		<p>There has been no posts made from {{ post.profile.username }}.</p>
-	{% else %}
-		<p>There has been no posts made from {{ post.profile.user }}.</p>
-	{% endif %}
+		<p>There has been no posts made from {{ profile }}.</p>
 {% endfor %}
 
 {% endblock %}
