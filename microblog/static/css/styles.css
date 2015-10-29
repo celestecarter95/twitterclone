@@ -25,8 +25,14 @@ a {
 	color: rgba(92, 75, 81, 1.0);
 }
 
-a:hover, a:focus {
+a {
 	color: rgba(242, 98, 93, 1.0);
+	text-decoration: underline;
+}
+
+a:hover, a:focus {
+	color: rgba(242, 98, 93, 0.7);
+	font-size: 15px;
 }
 
 .container {
@@ -45,13 +51,18 @@ a:hover, a:focus {
 .navbar-inverse .navbar-brand,
 .navbar-inverse .navbar-nav>li>a {
 	color: rgba(92, 75, 81, 1.0);
+	text-decoration: none;
+}
+
+.navbar-inverse .navbar-nav>li>a:focus,
+.navbar-inverse .navbar-nav>li>a:hover {
+	color: rgba(139, 190, 178, 1.0);
 }
 
 .navbar-inverse .navbar-brand:focus,
-.navbar-inverse .navbar-nav>li>a:focus,
-.navbar-inverse .navbar-brand:hover,
-.navbar-inverse .navbar-nav>li>a:hover {
+.navbar-inverse .navbar-brand:hover {
 	color: rgba(139, 190, 178, 1.0);
+	font-size: 30px;
 }
 
 .navbar-nav>li>a {
@@ -119,16 +130,81 @@ h1 {
 
 .bio {
 	background-color: rgba(244, 182, 88, 1.0);
-	height: 100px;
+	height: 140px;
 	overflow: scroll;
 	padding: 10px;
 	border-radius: 3px;
 	
 }
 
+#id_body {
+	width: 100%;
+}
+
 .profile-info {
 	float: left;
 	margin-left: 20px;
+	width: 70%;
+}
+
+.follow-profile,
+.edit-profile {
+	float:right;
+	position: relative;
+	top: 30px;
+}
+
+.btn-default {
+	text-decoration: none;
+	color: rgba(242, 236, 188, 1.0);
+	background-color: rgba(242, 98, 93, 1.0);
+}
+
+.btn-default:hover,
+.btn-default:focus {
+	text-decoration: none;
+	color: rgba(242, 236, 188, 1.0);
+	background-color: rgba(242, 98, 93, 0.7);
+	font-size: 14px;
+}
+
+.btn-primary {
+	color: rgba(242, 236, 188, 1.0);
+	background-color: rgba(139, 190, 178, 1.0);
+	border-color: rgba(139, 190, 178, 1.0);
+} 
+
+.btn-primary:hover,
+.btn-primary:focus {
+	background-color: rgba(139, 190, 178, 0.7);
+	border-color: rgba(139, 190, 178, 0.7);
+}
+
+select,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="file"] {
+	border-radius: 3px;
+	background-color: rgba(242, 236, 188, 1.0);
+	border: 2px inset;
+	clear: left;
+	margin-bottom: 10px;
+}
+
+input[type="file"] {
+	background-color: rgba(242, 236, 188, 0.0);
+	border: none;
+}
+
+select,
+textarea,
+input[type="file"] {
+	display: block;
+}
+.errorlist {
+	color: rgba(242, 98, 93, 1.0);
 }
 
 .affix {
@@ -140,6 +216,12 @@ h1 {
 }
 
 footer {
-	background-color: rgba(242, 98, 93, 1.0);
 	background-color: rgba(244, 182, 88, 1.0);
+	margin-top: 20px;
+}
+
+footer p {
+	padding-top: 10px;
+	font-family: 'Voltaire', sans-serif;
+	font-size: 18px;
 }

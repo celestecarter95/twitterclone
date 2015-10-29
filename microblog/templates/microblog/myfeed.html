@@ -5,11 +5,12 @@
 {% if post_list %}
 	{% for post in post_list %}
 		{% include 'microblog/_post.html' %}
-	{% empty %}
-		<p>No posts have been made from you or those you follow.</p>
 	{% endfor %}
 
 	{% include 'microblog/pagination.html' %}
+{% else %}
+	<p>No posts have been made from you or those you follow.</p>
+	<p>If you want to follow more people check out <a href="{% url 'microblog:main' %}"> all recent feeds</a></p>
 {% endif %}
 
 {% endblock %}

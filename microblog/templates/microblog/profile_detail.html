@@ -10,21 +10,21 @@
 			<img src="{{ img.url }}" class="profile-img" alt="profile image">
 		{% endthumbnail %}
 	{% else %}
-		<img src="{{ profile.get_gravatar_img_path }}?s=160" class="profile-img" alt="empty profile image">
+		<img src="{{ profile.get_gravatar_img_path }}?s=160" width=210 height=210 class="profile-img" alt="empty profile image">
 	{% endif %}
 
 	<div class="profile-info">
-		<h1>{{ profile }}</h1>
 		{% if request.user.is_authenticated %}
 			{% ifequal request.user profile.user %}
-				<a href="{% url 'microblog:updateprofile' profile.id %}"><button class="btn btn-primary">Edit Profile</button></a>
+				<a class="edit-profile" href="{% url 'microblog:updateprofile' profile.id %}"><button class="btn btn-primary">Edit Profile</button></a>
 			{% else %}
 				<form action="{% url 'microblog:follow' profile.id %}" method="post">
 					{%csrf_token %}
-					<button class="btn btn-primary">Follow {{ profile }}</button>
+					<button class="btn btn-primary follow-profile">Follow {{ profile }}</button>
 				</form>
 			{% endifequal %}
 		{% endif %}
+		<h1>{{ profile }}</h1>
 		<p class="bio">{{ profile.bio }}</p>
 	</div>
 </div>

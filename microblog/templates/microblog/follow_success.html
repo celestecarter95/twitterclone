@@ -5,7 +5,7 @@
 {% block content %}
 
 <p>
-You've successfully followed <a href="{% url 'microblog:profiledetail' profile.user.id %}">{{profile.user.username}}</a> on Twitterclone.
+You've successfully followed <a href="{% url 'microblog:profiledetail' profile.id %}">{{profile}}</a> on Twitterclone.
 </p>
 
 {% endblock %}

@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
-{% block title %}Update {{ profile.user.username }} {% endblock %}
+{% block title %}{% if profile %} Update {% else %} Create {% endif %}{{ profile.user.username }} {% endblock %}
 
 {% block content %}
 
 	<form action="." method="post" class="form" enctype="multipart/form-data">
 		{% csrf_token %}
 		{{ form }}
-		<button class="btn btn-default">Update</button>
+		<button class="btn btn-primary">{% if profile %} Update {% else %} Create {% endif %}</button>
 	</form>
 
 {% endblock %}

@@ -43,9 +43,9 @@ class FollowFormView(SingleObjectMixin, View):
 			my_profile = Profile(bio = '', user = request.user)
 		my_profile.following.add(self.get_object())
 		my_profile.save()
-		return HttpResponseRedirect(reverse_lazy('microblog:profiledetail', args = (self.get_object().pk, )))
-		#return HttpResponseRedirect(reverse_lazy('microblog:followsuccess', args = (self.get_object().pk, )))
-		# return HttpResponseRedirect(reverse('microblog:followsuccess', kwargs = {'pk': self.get_object.pk()))
+		#return HttpResponseRedirect(reverse_lazy('microblog:profiledetail', args = (self.get_object().pk, )))
+		return HttpResponseRedirect(reverse_lazy('microblog:followsuccess', args = (self.get_object().pk, )))
+		#return HttpResponseRedirect(reverse('microblog:followsuccess', kwargs = {'pk': self.get_object.pk()))
 
 class FollowSuccessView(DetailView):
 	template_name = 'microblog/follow_success.html'
@@ -54,10 +54,7 @@ class FollowSuccessView(DetailView):
 class CreatePostView(CreateView):
 	model = Post
 	fields = ['body']
-
-	def get_success_url(self):
-		#return HttpResponseRedirect(reverse('microblog:profiledetail', args=(self.request.user.id)))
-		return reverse_lazy('microblog:myfeed')
+	success_url = reverse_lazy('microblog:myfeed')
 
 	def form_valid(self, form):
 		profile = self.request.user.profile_set.all()[0]
@@ -77,13 +74,15 @@ class DeletePostView(DeleteView):
 
 class CreateProfileView(CreateView):
 	model = Profile
-	fields = ['bio', 'following']
+	fields = ['bio', 'picture', 'following']
 
 	def get_success_url(self):
 		return reverse('microblog:main')
 
 	def form_valid(self, form):
 		profile = form.save(commit=False)
+		if 'picture' in self.request.FILES:
+			profile.picture = self.get_form_kwargs().get('files')['picture']
 		profile.user = self.request.user
 		profile.save()
 
@@ -98,10 +97,8 @@ class UpdateProfileView(UpdateView):
 
 	def form_valid(self, form):
 		profile = form.save(commit=False)
-		try:
+		if 'picture' in self.request.FILES:
 			profile.picture = self.get_form_kwargs().get('files')['picture']
-		except Profile.DoesNotExist:
-			pass
 		profile.save()
 
 		return super(UpdateProfileView, self).form_valid(form)
