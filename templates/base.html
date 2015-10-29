@@ -49,7 +49,11 @@
 		<div id="navbar" class="collapse navbar-collapse">
 		  <ul class="nav navbar-nav">
 			{% if request.user.is_authenticated %}
-				<li><a href="{% url 'microblog:profiledetail' request.user.id %}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+				{% if request.user.profile_set.all.0.id %}
+					<li><a href="{% url 'microblog:profiledetail' request.user.profile_set.all.0.id %}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+				{% else%}
+					<li><a href="{% url 'microblog:createprofile' %}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+				{% endif %}
 				<li><a href="{% url 'microblog:myfeed' %}"><span class="glyphicon glyphicon-comment"></span> My Feed</a></li>
 				<li><a href="{% url 'microblog:addpost' %}"><span class="glyphicon glyphicon-edit"></span> Create a Post</a></li>
 			{% else %}

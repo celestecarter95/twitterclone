@@ -14,6 +14,6 @@ urlpatterns = [
 	url(r'^deletepost/success/$', login_required(TemplateView.as_view(template_name='microblog/success.html')), name="deletesuccess"),
 	url(r'^profile/(?P<pk>\d+)/follow/$', login_required(views.FollowFormView.as_view()), name="follow"),
     url(r'^profile/(?P<pk>\d+)/follow/success/$', login_required(views.FollowSuccessView.as_view()), name="followsuccess"),
-	url(r'^profile/create/$', views.CreateProfileView.as_view(), name="createprofile"),
-	url(r'^profile/(?P<pk>\d+)/update/$', views.UpdateProfileView.as_view(), name="updateprofile"),
+	url(r'^profile/create/$', login_required(views.CreateProfileView.as_view()), name="createprofile"),
+	url(r'^profile/(?P<pk>\d+)/update/$', login_required(views.UpdateProfileView.as_view()), name="updateprofile"),
 ]

@@ -77,15 +77,14 @@ class DeletePostView(DeleteView):
 
 class CreateProfileView(CreateView):
 	model = Profile
-	fields = ['bio', 'picture', 'following']
+	fields = ['bio', 'following']
 
 	def get_success_url(self):
-		return reverse('microblog:profiledetail', args = (self.request.user.id, ))
+		return reverse('microblog:main')
 
 	def form_valid(self, form):
 		profile = form.save(commit=False)
 		profile.user = self.request.user
-		profile.picture = self.get_form_kwargs().get('files')['picture']
 		profile.save()
 
 		return super(CreateProfileView, self).form_valid(form)
@@ -99,7 +98,10 @@ class UpdateProfileView(UpdateView):
 
 	def form_valid(self, form):
 		profile = form.save(commit=False)
-		profile.picture = self.get_form_kwargs().get('files')['picture']
+		try:
+			profile.picture = self.get_form_kwargs().get('files')['picture']
+		except Profile.DoesNotExist:
+			pass
 		profile.save()
 
 		return super(UpdateProfileView, self).form_valid(form)
