@@ -1,20 +1,27 @@
 {% load thumbnail %}
 
-<div class="">
+<div class="feed-post">
+	<a href="{% url 'microblog:profiledetail' post.profile.id %}">
 	{% if post.profile.picture %}
-		{% thumbnail post.profile.picture "80x80" crop="center" as img %}
-			<img src="{{ img.url }}" class="profile-img" alt="profile picture">
+		{% thumbnail post.profile.picture "90x90" crop="center" as img %}
+			<img class="post-img" src="{{ img.url }}" class="profile-img" alt="profile picture">
 		{% endthumbnail %}
 	{% else %}
-		<img src="{{ post.profile.get_gravatar_img_path }}" width="80" height="80" class="profile-img" alt="empty profile picture">
+		<img class="post-img" src="{{ post.profile.get_gravatar_img_path }}" width="90" height="90" class="profile-img" alt="empty profile picture">
 	{% endif %}
+	</a>
 
-	{% ifequal request.user post.profile.user %}
-		<a href="{% url 'microblog:updatepost' post.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
-		<a href="{% url 'microblog:deletepost' post.id %}"><span class="glyphicon glyphicon-trash"></span></a>
-	{% endifequal %}
-	<a href="{% url 'microblog:profiledetail' post.profile.user.id %}">{{ post.profile }}</a>
+	<h4>
+		<a class="name" href="{% url 'microblog:profiledetail' post.profile.id %}">{{ post.profile }}</a>
+		{% ifequal request.user post.profile.user %}
+			<a class="edit" href="{% url 'microblog:updatepost' post.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
+			<a class="edit" href="{% url 'microblog:deletepost' post.id %}"><span class="glyphicon glyphicon-trash"></span></a>
+		{% endifequal %}
+	</h4>
 	<p class="pubdate">Published {{ post.pub_date|date:"d M, Y" }} at {{ post.pub_date|date:"g:i a" }}</p>
-	<p>{{ post.body }}</p>
+	<div class="post-text">
+		<p>{{ post.body }}</p>
+	</div>
+	<div style="clear:left;"></div>
 </div>
 

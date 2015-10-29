@@ -7,7 +7,8 @@ class Profile(models.Model):
 	user = models.ForeignKey(User)
 	bio  = models.TextField('Short Bio', blank=True, null=True)
 	picture = models.ImageField(upload_to="pics/%Y/%m/%d", blank=True, null=True)
-	following = models.ManyToManyField('Profile', blank=True, null=True)
+	#following = models.ManyToManyField('Profile', blank=True, symmetrical=False)
+	following = models.ManyToManyField('Profile', blank=True)
 
 	def get_gravatar_img_path(self):
 		if self.user.email:

@@ -25,7 +25,8 @@ class MyFeedView(ListView):
 	template_name = "microblog/myfeed.html"
 
 	def get_queryset(self):
-		my_profile = self.request.user.profile_set.all()[0]
+		#my_profile = self.request.user.profile_set.all()[0]
+		my_profile, created = Profile.objects.get_or_create(user = self.request.user)
 		profile_list = list(my_profile.following.all())
 		profile_list.append(my_profile)
 		return Post.objects.filter(profile__in = profile_list).order_by('-pub_date')
@@ -35,14 +36,18 @@ class FollowFormView(SingleObjectMixin, View):
 
 	def post(self, request, *args, **kwargs):
 		#self tells me who we want to follow and request tell me who the login user is
-		my_profile = request.user.profile_set.all()[0]
+		#my_profile, created = Profile.objects.get_or_create(user = self.request.user)
+		try:
+			my_profile = request.user.profile_set.all()[0]
+		except Profile.DoesNotExist:
+			my_profile = Profile(bio = '', user = request.user)
 		my_profile.following.add(self.get_object())
 		my_profile.save()
 		return HttpResponseRedirect(reverse_lazy('microblog:profiledetail', args = (self.get_object().pk, )))
 		#return HttpResponseRedirect(reverse_lazy('microblog:followsuccess', args = (self.get_object().pk, )))
 		# return HttpResponseRedirect(reverse('microblog:followsuccess', kwargs = {'pk': self.get_object.pk()))
 
-class FollowSuccessView(SingleObjectMixin, TemplateView):
+class FollowSuccessView(DetailView):
 	template_name = 'microblog/follow_success.html'
 	model = Profile
 

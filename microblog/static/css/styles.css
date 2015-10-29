@@ -1,0 +1,145 @@
+/*
+	dark purple/navy:
+	background-color: rgba(92, 75, 81, 1.0);
+	light blue:
+	background-color: rgba(139, 190, 178, 1.0);
+	cream/white:
+	background-color: rgba(242, 236, 188, 1.0);
+	yellow/orange:
+	background-color: rgba(244, 182, 88, 1.0);
+	light red/pink:
+	background-color: rgba(242, 98, 93, 1.0);
+*/
+body {
+	background-color: rgba(242, 236, 188, 0.6);
+	color: rgba(92, 75, 81, 1.0);
+	font-family: 'Open Sans', sans-serif;
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: normal;
+}
+
+a {
+	color: rgba(92, 75, 81, 1.0);
+}
+
+a:hover, a:focus {
+	color: rgba(242, 98, 93, 1.0);
+}
+
+.container {
+	flex: 1;
+}
+
+.content {
+	margin-top: 80px;
+}
+
+.navbar-inverse {
+	background-color: rgba(242, 98, 93, 0.0);
+	border: none;
+}
+
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-nav>li>a {
+	color: rgba(92, 75, 81, 1.0);
+}
+
+.navbar-inverse .navbar-brand:focus,
+.navbar-inverse .navbar-nav>li>a:focus,
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-nav>li>a:hover {
+	color: rgba(139, 190, 178, 1.0);
+}
+
+.navbar-nav>li>a {
+	font-family: 'Alegreya Sans SC', sans-serif;
+	font-size: 17px;
+	margin: 25px 15px 0;
+	padding: 0;
+	border-style: none;
+	border-bottom: 2px solid rgba(242, 98, 93, 1.0);
+}
+
+.navbar-brand {
+	font-family: 'Voltaire', sans-serif;
+	font-weight: 700;
+	font-size: 30px;
+	padding: 25px 20px 0;
+}
+
+.feed-post {
+	margin-bottom: 30px;
+}
+
+.post-img {
+	border-radius: 3px;
+	float: left;
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+.post-text {
+	background-color: rgba(92, 75, 81, 1.0);
+	border: 2px solid rgba(92, 75, 81, 0.3);
+	border-radius: 3px;
+	color: rgba(242, 236, 188, 1.0);
+	min-height: 50px;
+	font-size: 18px;
+}
+
+.feed-post p, .feed-post h4 {
+	margin-left: 110px;
+}
+
+.name {
+	font-family: 'Alegreya Sans SC', sans-serif;
+}
+
+.edit {
+	font-size: 15px;
+	margin-left: 5px;
+}
+
+.pubdate {
+	font-size: 10px;
+}
+
+h1 {
+	font-family: 'Voltaire', sans-serif;
+}
+
+.profile-img {
+	float: left;
+	border-radius: 3px;
+	border: 5px dotted rgba(244, 182, 88, 1.0);
+}
+
+.bio {
+	background-color: rgba(244, 182, 88, 1.0);
+	height: 100px;
+	overflow: scroll;
+	padding: 10px;
+	border-radius: 3px;
+	
+}
+
+.profile-info {
+	float: left;
+	margin-left: 20px;
+}
+
+.affix {
+	top: 0;
+	width: 100%;
+	background-color: rgba(242, 236, 188, 0.9);
+	padding-bottom: 10px;
+	border-bottom: 3px solid rgba(244, 182, 88, 1.0);
+}
+
+footer {
+	background-color: rgba(242, 98, 93, 1.0);
+	background-color: rgba(244, 182, 88, 1.0);
+}
